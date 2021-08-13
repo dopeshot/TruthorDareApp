@@ -44,10 +44,15 @@ class Player extends React.Component {
         }
     }
     setName(name: string){
+        console.log(this.props.parent.playerArray)
+
+
+
         this.name = name
     }
     
     render(){
+        console.log(this.name)
         return (
         <div>
         <IonRow>
@@ -56,10 +61,10 @@ class Player extends React.Component {
                     <IonToggle onIonChange={e => this.swapGender(this)} />
                 </IonItem>
             </IonCol>
-            <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}><IonInput value={this.name} placeholder="Name" onIonChange={e =>this.setName(e.detail.value!)}></IonInput>
+            <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}><IonInput value={this.name} placeholder={'Name'} onIonChange={e =>this.setName(e.detail.value!)}></IonInput>
             </IonCol>
             <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}>
-            <IonButton type ="button" onClick={() => this.props.delSelf(0, this.props.parent)}>x   </IonButton>
+            <IonButton type ="button" onClick={() => this.props.delSelf(this.props.index, this.props.parent)}>x   </IonButton>
         </IonCol>
         </IonRow>
       </div>

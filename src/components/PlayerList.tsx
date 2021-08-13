@@ -20,7 +20,7 @@ class PlayerList extends Component {
 
     }
     delSelf(index : number, parent : PlayerList){
-        console.log(this)
+        console.log(parent.playerArray)
         parent.playerArray.splice(index,1)
         parent.playerCount = parent.playerArray.length
         parent.setState({playerCount: parent.playerCount})
@@ -35,7 +35,7 @@ class PlayerList extends Component {
         return(<div>
             { this.playerArray && this.playerArray.map((player,index) => {
                 return (
-                        <Player delSelf = {this.delSelf} parent = {this}/>
+                        <Player delSelf = {this.delSelf} parent = {this} index = {index}/>
          
                     
                 )
