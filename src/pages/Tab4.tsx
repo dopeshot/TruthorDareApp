@@ -1,47 +1,60 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { play } from 'ionicons/icons';
 import React, { useState } from 'react';
 import { ReactDOM } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
+import Player from '../components/Player'
 import './Tab4.css';
 
 
 const Tab4: React.FC = () => {
+
+  function addUser(){
+    console.log("yay")
+  }
+
+  function swapGender(player: any, male: boolean){
+
+    if(player.gender=="male"){
+      player.gender = "female"
+    }
+    else{
+      player.gender = "male"
+    }
+  }
+  document.querySelectorAll("grid")
+  const players = [{
+    key: 1,
+    text: "",
+    gender: "male"
+  }, {
+    key: 2,
+    text: "",
+    gender: "male"
+  }, {
+    key: 3,
+    text: "",
+    gender: "male"
+  }]
   const [checked, setChecked] = useState(false);
+  const [text, setText] = useState<string>();
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 4</IonTitle>
-        </IonToolbar>
       </IonHeader>
       <IonContent>
-    <IonGrid>
-
+    <IonGrid id="grid">
+      { players && players.map(player => {
+        return <Player/>
+      }) }
       <IonRow>
-        <IonCol size="3">
-        <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-          <IonItem>
-            <IonToggle checked={checked} onIonChange={e => setChecked(e.detail.checked)} />
-          </IonItem>
-          </div>
-        </IonCol>
-        <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}>ion-col</IonCol>
-      </IonRow>
-      <IonRow>
-        <IonCol>
-
-        </IonCol>
         <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
          
-        <IonButton>
+        <IonButton type ="button" onClick={addUser}>
           +
         </IonButton>
        
         </IonCol>
-        <IonCol>
-
-        </IonCol>
-       
       </IonRow>
     </IonGrid>
   </IonContent>
