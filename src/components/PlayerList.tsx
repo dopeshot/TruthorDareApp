@@ -22,9 +22,9 @@ class PlayerList extends Component<{}, { playerCount: number, players : any }> {
     }
 
     componentDidMount(){
-        console.log("hey")
+        
         fetch('./players.json')
-        .then(response => {console.log(response)
+        .then(response => {
             return response.json()})
         .then(result => {
 

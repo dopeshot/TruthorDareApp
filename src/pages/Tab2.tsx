@@ -3,7 +3,7 @@ import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import CardMover from '../components/CardMover';
 import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
-import Card from '../components/Card';
+
 
 const Tab2: React.FC = () => {
   return (

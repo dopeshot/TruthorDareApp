@@ -1,29 +1,63 @@
 import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from "@ionic/react";
 import React, {Component} from "react";
-import Card from "./Card";
+
 import Player from "./Player";
 
-class CardMover extends Component{
-    cardArray : Card[]
-
+class CardMover extends Component<{},{cards: any, current: number}>{
+    
     constructor(){
         super(false)
-        this.cardArray = [
-            new Card({dare: true, text : "Wieviel Geld müsste *XY dir geben dass ihr heute Nacht sex habt?",
-            player: new Player({gender: 'male', name: 'Ben'})
-            })
-        ]
+        
         this.state= {
-            side: 'choosing'
+            cards: [],
+            current: 0
         }
         
     }
+    componentDidMount(){
+        console.log("HEy")
+      fetch('./collection.json')
+      .then(response => {
+          return response.json()})
+      .then(result => {
 
+          
+          //@ts-ignore
+          const cards = result.map(item => {
+              
+              return item;
+          })
+          this.setState({
+              cards: cards
+          })
+      })
+  }
+  truthOrDare(){
+    console.log(this.state.cards)
+
+    if(this.state.cards.length != 0){
+    if(this.state.cards[this.state.current].dare){
+      return<div>
+      <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Dare</IonCardTitle>
+    </div>
+    }
+    else{
+      return<div>
+      <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Truth</IonCardTitle>
+    </div>
+    }
+  }
+   return<div></div>
+   
+  }
     render(){
         return( <IonContent>
             <IonCard>
           <IonCardHeader>
-            <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Truth/Dare</IonCardTitle>
+            <div>{
+              this.truthOrDare()
+            }</div>
+           
           </IonCardHeader>
 
           <IonCardContent >
