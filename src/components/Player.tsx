@@ -7,25 +7,25 @@ import PlayerList from "./PlayerList";
 interface Props {
     delSelf: void;
   }
-class Player extends React.Component {
+class Player extends React.Component<{}, {gender : string, update: boolean}> {
     
     gender: string
     name : string
-    list : PlayerList
+    
 
     props: any
-    constructor(data : {gender : string, name : string, list : PlayerList}){
+    constructor(data : {gender : string, name : string}){
         
         super(false);
         this.gender = data.gender
         this.name = data.name
-        this.list = data.list
+        
         
         
         this.state = {
             gender: 'male',
             update: true,
-            parent: this.list
+            
         }
         
         
@@ -60,7 +60,7 @@ class Player extends React.Component {
                 <IonItem style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
                     <IonToggle onIonChange={e => this.swapGender(this)} />
                 </IonItem>
-            </IonCol>
+            </IonCol><div>{this.state.gender}</div>
             <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}><IonInput value={this.name} placeholder={'Name'} onIonChange={e =>this.setName(e.detail.value!)}></IonInput>
             </IonCol>
             <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}>
