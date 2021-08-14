@@ -4,11 +4,13 @@ import Player from "./Player";
 
 
 
-class PlayerList extends Component<{}, { playerCount: number, players : any }> {
+
+
+class PlayerList extends Component<{callback: any}, { playerCount: number, players : any }> {
     
    
-    constructor(){
-        super(false);
+    constructor(props: any){
+        super(props);
         
         
         
@@ -63,6 +65,11 @@ class PlayerList extends Component<{}, { playerCount: number, players : any }> {
         this.setState({players: array})
         this.setState({playerCount: this.state.playerCount +1})
     }
+    safe(){
+        if(this.state.players.length != 0){
+        this.props.callback(this.state.players)
+        }
+    }
     //@ts-ignore
     render(){
         
@@ -94,10 +101,12 @@ class PlayerList extends Component<{}, { playerCount: number, players : any }> {
           +
         </IonButton>
        
-        </IonCol>
+        </IonCol>{this.safe()}
       </IonRow></div>
         )
     }
 
 }
 export default PlayerList
+
+

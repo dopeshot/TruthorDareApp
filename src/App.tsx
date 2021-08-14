@@ -1,4 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
+import React from 'react';
 import {
   IonApp,
   IonAvatar,
@@ -37,8 +38,21 @@ import './theme/variables.css';
 import { profile } from 'console';
 import Counter from './components/counter';
 
-const App: React.FC = () => (
-  <IonApp>
+class App extends React.Component<{},{players: any}> {
+
+  constructor(props: any){
+    super(props)
+    this.state={
+      players: []
+    }
+  }
+  callbackFunction(data : any){
+    this.setState({
+      players : data
+    })
+  }
+  render(){
+    return <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
@@ -53,7 +67,7 @@ const App: React.FC = () => (
             <Tab3 />
           </Route>
           <Route exact path="/tab4">
-            <Tab4 />
+            <Tab4  callback = {this.callbackFunction} />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -76,6 +90,8 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-);
+  }
+  
+}
 
 export default App;

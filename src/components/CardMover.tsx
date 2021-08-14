@@ -32,7 +32,7 @@ class CardMover extends Component<{},{cards: any, current: number}>{
           })
       })
   }
-  truthOrDare(){
+  truthOrDareTitle(){
     console.log(this.state.cards)
 
     if(this.state.cards.length != 0){
@@ -55,9 +55,8 @@ class CardMover extends Component<{},{cards: any, current: number}>{
             <IonCard>
           <IonCardHeader>
             <div>{
-              this.truthOrDare()
+              this.truthOrDareTitle()
             }</div>
-           
           </IonCardHeader>
 
           <IonCardContent >
