@@ -1,4 +1,4 @@
-import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent } from "@ionic/react";
+import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from "@ionic/react";
 import React, {Component} from "react";
 import Card from "./Card";
 import Player from "./Player";
@@ -21,7 +21,19 @@ class CardMover extends Component{
 
     render(){
         return( <IonContent>
-            <Card />
+            <IonCard>
+          <IonCardHeader>
+            <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Truth/Dare</IonCardTitle>
+          </IonCardHeader>
+
+          <IonCardContent >
+              <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+            Frage
+            </div>
+            
+      </IonCardContent>
+        </IonCard>
+
             <IonGrid id="grid">
           <IonRow>
             <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
