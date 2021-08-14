@@ -5,15 +5,15 @@ import Player from "./Player";
 
 
 class PlayerList extends Component<{}, { playerCount: number, players : any }> {
-    playerArray : Player[]
-    playerCount : number
+    
+   
     constructor(){
         super(false);
-        this.playerArray = [new Player({gender:'male',name:''}), new Player({gender:'male',name:''})]
         
         
         
-        this.playerCount = 2
+        
+        
         this.state = {
             playerCount : 2,
             players : []
@@ -40,19 +40,28 @@ class PlayerList extends Component<{}, { playerCount: number, players : any }> {
         })
     }
     delSelf(index : number){
-       
+        var array : any
+        array = this.state.players
+        array.splice(index,1)
+        this.setState({players: array})
     }
     swapGender(index : number){
 
     }
     setName(name: string, index: number){
-
+        var array : any
+        array = this.state.players
+        array[index].name = name
+        this.setState({players: array})
     }
     
     addUser(){
-        this.playerArray.push(new Player({gender:'female',name:''}))
-        this.playerCount = this.playerCount + 1
-        this.setState({playerCount: this.playerCount})
+        var array : any
+        array = this.state.players
+        array.push({gender: "male",
+                    name: ""})
+        this.setState({players: array})
+        this.setState({playerCount: this.state.playerCount +1})
     }
     //@ts-ignore
     render(){
