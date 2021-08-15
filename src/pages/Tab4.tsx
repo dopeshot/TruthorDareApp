@@ -5,6 +5,10 @@ import './Tab3.css';
 import Profile from '../components/Profile';
 import { Component } from 'react';
 import CardMaker from '../components/CardMaker';
+import RegisLogin from '../components/RegisLogin';
+import Registration from '../components/Registration';
+import LoginGoogle from '../components/LoginGoogle';
+import Login from '../components/Login';
 
 class Tab4 extends Component<{},{currentscreen : string}>{
   constructor(){
@@ -12,7 +16,7 @@ class Tab4 extends Component<{},{currentscreen : string}>{
     super(false)
     this.changeScreen = this.changeScreen.bind(this)
     this.state = ({
-      currentscreen : "profile"
+      currentscreen : "regislogin"
     })
   }
 
@@ -25,14 +29,23 @@ class Tab4 extends Component<{},{currentscreen : string}>{
     if(this.state.currentscreen == "profile"){
       return <Profile changeScreen = {this.changeScreen}/>
     }
-    if(this.state.currentscreen == "cardmaker"){
-      return <CardMaker/>
+    if(this.state.currentscreen == "regislogin"){
+      return <RegisLogin changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "setmaker"){
       return <CardMaker/>
     }
-    if(this.state.currentscreen == "login"){
+    if(this.state.currentscreen == "cardmaker"){
       return <CardMaker/>
+    }
+    if(this.state.currentscreen == "registration"){
+      return <Registration changeScreen = {this.changeScreen}/>
+    }
+    if(this.state.currentscreen == "logingoogle"){
+      return <LoginGoogle changeScreen = {this.changeScreen}/>
+    }
+    if(this.state.currentscreen == "login"){
+      return <Login changeScreen = {this.changeScreen}/>
     }
   }
 
