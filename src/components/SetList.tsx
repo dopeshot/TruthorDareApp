@@ -1,4 +1,4 @@
-import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonInput } from "@ionic/react";
+import { IonRow, IonList, IonItem, IonInfiniteScrollContent, IonButton, IonInfiniteScroll } from "@ionic/react";
 import React, { Component } from "react";
 import Player from "./Player";
 
@@ -52,12 +52,21 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
             {this.state.sets && this.state.sets.map((set: any, index: number) => {
                 return (
                     <div>
+                        <IonList>
                         <IonRow>
-                                <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <p>{index}</p>
-                                </IonItem>
-                                <IonButton fill="clear"> {set.name}</IonButton>
+                            <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <p>{index}</p>
+                            </IonItem>
+                            <IonButton fill="clear"> {set.name}</IonButton>
                         </IonRow>
+                        </IonList>
+
+                        <IonInfiniteScroll threshold="100px" id="infinite-scroll">
+                            <IonInfiniteScrollContent
+                                loading-spinner="bubbles"
+                                loading-text="Loading more data...">
+                            </IonInfiniteScrollContent>
+                        </IonInfiniteScroll>
                     </div>
                 )
             })}

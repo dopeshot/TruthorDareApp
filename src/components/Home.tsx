@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 import { play } from 'ionicons/icons';
 import React, { useState } from 'react';
@@ -9,7 +9,7 @@ import PlayerList from '../components/PlayerList'
 import SetList from './SetList';
 
 
-class Home extends React.Component<{ callback: any, changescreen: any}, { sets: any }> {
+class Home extends React.Component<{ callback: any, changescreen: any }, { sets: any }> {
   constructor(props: any) {
     super(props)
     this.callbackFunction = this.callbackFunction.bind(this)
@@ -30,15 +30,10 @@ class Home extends React.Component<{ callback: any, changescreen: any}, { sets: 
 
     return (
       <IonPage>
-        <IonHeader>
-        </IonHeader>
         <IonContent>
-          <IonGrid id="grid">
-
-            <SetList callback={this.callbackFunction} />
-          </IonGrid>
+          <SetList callback={this.callbackFunction} />
         </IonContent>
-      </IonPage>
+      </IonPage >
     );
   };
 }
