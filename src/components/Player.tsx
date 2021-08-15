@@ -33,7 +33,7 @@ class Player extends React.Component<{}, {gender : string, update: boolean}> {
     }
     
     swapGender(player: Player, ) : void {
-        console.log(player.name)
+        
         if(player.gender == "male"){
             player.gender = "female"
             player.setState({gender: 'female'}) 
@@ -44,7 +44,7 @@ class Player extends React.Component<{}, {gender : string, update: boolean}> {
         }
     }
     setName(name: string){
-        console.log(this.props.parent.playerArray)
+        
 
 
 
@@ -52,7 +52,7 @@ class Player extends React.Component<{}, {gender : string, update: boolean}> {
     }
     
     render(){
-        console.log(this.name)
+        
         return (
         <div>
         <IonRow>

@@ -1,152 +1,47 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import { Component } from 'ionicons/dist/types/stencil-public-runtime';
+import { play } from 'ionicons/icons';
+import React, { useState } from 'react';
+import { ReactDOM } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
-import './Tab3.css';
+import Player from '../components/Player'
+import PlayerList from '../components/PlayerList'
+import './Tab4.css';
 
-const Tab3: React.FC = () => {
+
+class Tab4 extends React.Component<{callback: any},{players : any}> {
+  constructor(props: any){
+    super(props)
+    this.callbackFunction = this.callbackFunction.bind(this)
+    this.state ={
+      players : []
+    }
+    
+  }
+
+  callbackFunction(data : any){
+    this.setState({
+      players : data
+    })
+    
+    this.props.callback(this.state.players)
+  }
+  render()
+  {
+   
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
-        </IonToolbar>
       </IonHeader>
       <IonContent>
-    <IonGrid>
-      <IonRow>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="6">ion-col size="6"</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol>ion-col</IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="3">ion-col size="3"</IonCol>
-        <IonCol>ion-col</IonCol>
-        <IonCol size="3">ion-col size="3"</IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="3">ion-col size="3"</IonCol>
-        <IonCol size="3" offset="3">
-          ion-col size="3" offset="3"
-        </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol>ion-col</IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-        </IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-        </IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-          <br />#
-        </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol className="ion-align-self-start">ion-col start</IonCol>
-        <IonCol className="ion-align-self-center">ion-col center</IonCol>
-        <IonCol className="ion-align-self-end">ion-col end</IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-        </IonCol>
-      </IonRow>
-
-      <IonRow className="ion-align-items-start">
-        <IonCol>start ion-col</IonCol>
-        <IonCol>start ion-col</IonCol>
-        <IonCol className="ion-align-self-end">start ion-col end</IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-        </IonCol>
-      </IonRow>
-
-      <IonRow className="ion-align-items-center">
-        <IonCol>center ion-col</IonCol>
-        <IonCol>center ion-col</IonCol>
-        <IonCol>center ion-col</IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-        </IonCol>
-      </IonRow>
-
-      <IonRow className="ion-align-items-end">
-        <IonCol>end ion-col</IonCol>
-        <IonCol className="ion-align-self-start">end ion-col start</IonCol>
-        <IonCol>end ion-col</IonCol>
-        <IonCol>
-          ion-col
-          <br />#
-          <br />#
-        </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="12" size-sm>
-          ion-col size="12" size-sm
-        </IonCol>
-        <IonCol size="12" size-sm>
-          ion-col size="12" size-sm
-        </IonCol>
-        <IonCol size="12" size-sm>
-          ion-col size="12" size-sm
-        </IonCol>
-        <IonCol size="12" size-sm>
-          ion-col size="12" size-sm
-        </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="12" size-md>
-          ion-col size="12" size-md
-        </IonCol>
-        <IonCol size="12" size-md>
-          ion-col size="12" size-md
-        </IonCol>
-        <IonCol size="12" size-md>
-          ion-col size="12" size-md
-        </IonCol>
-        <IonCol size="12" size-md>
-          ion-col size="12" size-md
-        </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol size="6" size-lg offset="3">
-          ion-col size="6" size-lg offset="3"
-        </IonCol>
-        <IonCol size="3" size-lg>
-          ion-col size="3" size-lg
-        </IonCol>
-      </IonRow>
+    <IonGrid id="grid">
+      
+     <PlayerList callback = {this.callbackFunction}/>
     </IonGrid>
   </IonContent>
     </IonPage>
   );
 };
+}
 
-export default Tab3;
+export default Tab4;

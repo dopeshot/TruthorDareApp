@@ -50,7 +50,7 @@ class App extends React.Component<{},{players: any}> {
     }
   }
   callbackFunction(data : any){
-    console.log(this.state.players)
+    
     this.setState({
       players : data
     })
@@ -68,10 +68,10 @@ class App extends React.Component<{},{players: any}> {
             <Tab2 players = {this.state.players}/>
           </Route>
           <Route path="/tab3">
-            <Tab3 />
+            <Tab3 callback = {this.callbackFunction}/>
           </Route>
           <Route exact path="/tab4">
-            <Tab4  callback = {this.callbackFunction} />
+            <Tab4   />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />

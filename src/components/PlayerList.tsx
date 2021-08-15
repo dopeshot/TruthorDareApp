@@ -30,7 +30,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
             return response.json()})
         .then(result => {
 
-            console.log(result)
+            
             //@ts-ignore
             const players = result.map(item => {
                 

@@ -22,7 +22,7 @@ class CardMover extends Component<{players : any},{cards: any, truths: any, dare
         
     }
     componentDidMount(){
-        console.log("HEy")
+        
       fetch('./collection.json')
       .then(response => {
           return response.json()})
