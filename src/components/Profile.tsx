@@ -2,9 +2,9 @@ import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, Ion
 import { person } from "ionicons/icons";
 import React, {Component} from "react";
 
-class Profile extends Component{
-    constructor(){
-        super(false)
+class Profile extends Component<{changeScreen : any},{}>{
+    constructor(props : any){
+        super(props)
     }
 
     render(){
@@ -44,7 +44,7 @@ class Profile extends Component{
        </IonRow>
        <IonRow>
        <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}>Your tasks</IonCol>
-         <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}><IonButton type ="button" onClick={() => {}}>+ New</IonButton></IonCol>
+         <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}><IonButton type ="button" onClick={() => {this.props.changeScreen("cardmaker")}}>+ New</IonButton></IonCol>
        </IonRow>
       </IonGrid>
     </IonContent>

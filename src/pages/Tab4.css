@@ -1,7 +1,0 @@
-ion-toggle {
-    --background:#dbdbdb;
-    --background-checked: #dbdbdb;
-  
-    --handle-background: #8f8f8f;
-    --handle-background-checked: #8f8f8f url(../assets/icon.png) no-repeat center / contain;
-  }
