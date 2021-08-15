@@ -5,6 +5,7 @@ import './Tab3.css';
 import Profile from '../components/Profile';
 import { Component } from 'react';
 import CardMaker from '../components/CardMaker';
+import Collection from '../components/Collection';
 
 class Tab4 extends Component<{},{currentscreen : string}>{
   constructor(){
@@ -26,13 +27,13 @@ class Tab4 extends Component<{},{currentscreen : string}>{
       return <Profile changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "cardmaker"){
-      return <CardMaker/>
+      return <CardMaker changeScreen = {this.changeScreen}/>
     }
-    if(this.state.currentscreen == "setmaker"){
-      return <CardMaker/>
+    if(this.state.currentscreen == "collection"){
+      return <Collection changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "login"){
-      return <CardMaker/>
+      return 
     }
   }
 

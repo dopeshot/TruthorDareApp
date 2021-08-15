@@ -12,7 +12,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div><Counter/></div>
+        <div></div>
       </IonContent>
     </IonPage>
   );

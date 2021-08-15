@@ -35,7 +35,7 @@ class Profile extends Component<{changeScreen : any},{}>{
        </IonRow>
        <IonRow>
          <IonCol style={{display: 'flex', justifyContent:'left', alignItems:'left'}}>Your sets</IonCol>
-         <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}><IonButton type ="button" onClick={() => {}}>+ New</IonButton></IonCol>
+         <IonCol style={{display: 'flex', justifyContent:'right', alignItems:'right'}}><IonButton type ="button" onClick={() => {this.props.changeScreen("collection")}}>+ New</IonButton></IonCol>
        </IonRow>
        <IonRow>
          <IonButton type ="button" onClick={() => {}}>Collection</IonButton>
