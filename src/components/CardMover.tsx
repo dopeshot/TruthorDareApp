@@ -3,10 +3,10 @@ import React, {Component} from "react";
 
 import Player from "./Player";
 
-class CardMover extends Component<{},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean}>{
+class CardMover extends Component<{players : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, currentPlayerName: string, currentPlayerGender: string}>{
     
-    constructor(){
-        super(false)
+    constructor(props: any){
+        super(props)
         
         this.state= {
             cards: [],
@@ -14,7 +14,10 @@ class CardMover extends Component<{},{cards: any, truths: any, dares : any, curr
             dares :[],
             current: 0,
             dare : true,
-            choose : true
+            choose : true,
+            players: this.props.players,
+            currentPlayerName: "",
+            currentPlayerGender: ""
         }
         
     }
@@ -84,6 +87,12 @@ class CardMover extends Component<{},{cards: any, truths: any, dares : any, curr
     this.setState({dares: array})
     
     }
+    this.selectPlayer()
+  }
+  selectPlayer(){
+    var randInt = Math.floor(Math.random() * this.props.players.length);
+    this.setState({currentPlayerName: this.props.players[randInt].name, currentPlayerGender: this.props.players[randInt].gender})
+    
   }
   renderChoice(){
     return(
@@ -93,15 +102,25 @@ class CardMover extends Component<{},{cards: any, truths: any, dares : any, curr
               <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
             <IonGrid>
               <IonRow>
-                <IonButton type ="button" onClick={() => {this.setState({dare: false, choose : false})
-                }}>
-
+                <IonCol>
+              
+                <IonButton style={{display: 'flex', justifyContent:'center', alignItems:'center'}} type ="button" onClick={() => {this.setState({dare: false, choose : false})}}>
+                  Truth
                 </IonButton>
+                </IonCol>
+               
               </IonRow>
               <IonRow>
-                <IonButton type ="button" onClick={() => {this.setState({dare: true, choose : false})}}>
-                  
+              <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+                {this.state.currentPlayerName}
+              </IonCol>
+              </IonRow>
+              <IonRow>
+              <IonCol>
+                <IonButton style={{display: 'flex', justifyContent:'center', alignItems:'center'}} type ="button" onClick={() => {this.setState({dare: true, choose : false})}}>
+                  Dare
                 </IonButton>
+                </IonCol>
               </IonRow>
             </IonGrid>
             </div>
@@ -111,37 +130,50 @@ class CardMover extends Component<{},{cards: any, truths: any, dares : any, curr
     )
   }
   renderCard(){
-    return (
-    <IonContent>
+    return (<div>
+    
+            <IonCard>
+          <IonCardHeader>
+            <div>{
+              this.truthOrDareTitle()
+            }</div>
+          </IonCardHeader>
+
+          <IonCardContent >
+              <div style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+            {this.renderText()}
+            </div>
             
+      </IonCardContent>
+        </IonCard>
 
             <IonGrid id="grid">
           <IonRow>
             <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-              <IonButton type ="button" onClick={() => {this.remCard(); this.renderChoice()}}>
+              <IonButton type ="button" onClick={() => {this.remCard(); this.setState({choose: true})}}>
     
               </IonButton>
             </IonCol>
             <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-             <IonButton type ="button" onClick={() => {this.remCard(); this.renderChoice()}}>
+             <IonButton type ="button" onClick={() => {this.remCard(); this.setState({choose: true})}}>
                 
               </IonButton>
             </IonCol>
             <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-            <IonButton type ="button" onClick={() => {this.remCard(); this.renderChoice()}}>
+            <IonButton type ="button" onClick={() => {this.remCard(); this.setState({choose: true})}}>
                 
             </IonButton>
             </IonCol>
           </IonRow>
           
         </IonGrid>
-        </IonContent>
-        )
+        
+        </div>)
   }
   truthOrDareTitle(){
 
-    if(this.state.cards.length != 0){
-    if(this.state.cards[this.state.current].dare){
+    
+    if(this.state.dare){
       return<div>
       <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Dare</IonCardTitle>
     </div>
@@ -151,8 +183,8 @@ class CardMover extends Component<{},{cards: any, truths: any, dares : any, curr
       <IonCardTitle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>Truth</IonCardTitle>
     </div>
     }
-  }
-   return<div></div>
+  
+   
    
   }
   chooseOrPlay(){

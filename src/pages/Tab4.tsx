@@ -23,6 +23,7 @@ class Tab4 extends React.Component<{callback: any},{players : any}> {
     this.setState({
       players : data
     })
+    
     this.props.callback(this.state.players)
   }
   render()

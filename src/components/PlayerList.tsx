@@ -75,6 +75,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
         this.setState({playerCount: this.state.playerCount +1})
     }
     safe(){
+        
         if(this.state.players.length != 0){
         this.props.callback(this.state.players)
         }
