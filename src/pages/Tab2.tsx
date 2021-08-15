@@ -13,12 +13,14 @@ class Tab2 extends React.Component<{players : any},{players: any}> {
       players : this.props.players,
       
     }
+
+    
     
   }
   render(){
     return (
       <IonPage>
-        {console.log(this.props.players)}
+        
         
           <CardMover players = {this.props.players}/>
       </IonPage>
