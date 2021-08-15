@@ -1,5 +1,5 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+
 import React from 'react';
 import './Tab2.css';
 import CardMover from '../components/CardMover';
@@ -17,13 +17,23 @@ class Tab2 extends React.Component<{players : any},{players: any}> {
     
     
   }
+  firstStart(){
+    if(this.props.players.length == 0){
+      return <div>Set players first</div>
+    }
+    else{
+      return (
+        <IonPage>
+          
+          
+            <CardMover players = {this.props.players}/>
+        </IonPage>
+      );
+    }
+  }
   render(){
     return (
-      <IonPage>
-        
-        
-          <CardMover players = {this.props.players}/>
-      </IonPage>
+     <div>{this.firstStart()}</div>
     );
   }
   

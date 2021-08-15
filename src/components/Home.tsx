@@ -3,7 +3,7 @@ import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 import { play } from 'ionicons/icons';
 import React, { useState } from 'react';
 import { ReactDOM } from 'react';
-import ExploreContainer from '../components/ExploreContainer';
+
 import Player from '../components/Player'
 import PlayerList from '../components/PlayerList'
 import SetList from './SetList';
