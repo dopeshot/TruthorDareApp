@@ -41,7 +41,10 @@ import Counter from './components/counter';
 class App extends React.Component<{},{players: any}> {
 
   constructor(props: any){
+
+  
     super(props)
+    this.callbackFunction = this.callbackFunction.bind(this)
     this.state={
       players: []
     }

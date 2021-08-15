@@ -48,13 +48,22 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
         this.setState({players: array})
     }
     swapGender(index : number){
-
+        var array : any
+        array = this.state.players
+        if(array[index].gender = "male"){
+            array[index].gender = "female"
+        }
+        else{
+            array[index].gender = "male"
+        }
+        this.setState({players: array})
     }
     setName(name: string, index: number){
         var array : any
         array = this.state.players
         array[index].name = name
         this.setState({players: array})
+        this.safe();
     }
     
     addUser(){
@@ -101,7 +110,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
           +
         </IonButton>
        
-        </IonCol>{this.safe()}
+        </IonCol>{}
       </IonRow></div>
         )
     }
