@@ -56,7 +56,7 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <p>{index}</p>
                                 </IonItem>
-                                <IonButton fill="clear"> {set.name}</IonButton>
+                                <IonButton type = "button" fill="clear" > {set.name}</IonButton>
                         </IonRow>
                     </div>
                 )

@@ -51,7 +51,8 @@ class CardMover extends Component<{players : any},{cards: any, truths: any, dare
           });
           this.setState({
             dares: dares,
-            truths: truths
+            truths: truths,
+            currentPlayerName : this.props.players[0].name
           })
 
           

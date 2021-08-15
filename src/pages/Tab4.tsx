@@ -1,6 +1,6 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { person } from 'ionicons/icons';
-import ExploreContainer from '../components/ExploreContainer';
+
 import './Tab3.css';
 import Profile from '../components/Profile';
 import { Component } from 'react';
@@ -17,7 +17,7 @@ class Tab4 extends Component<{},{currentscreen : string}>{
     super(false)
     this.changeScreen = this.changeScreen.bind(this)
     this.state = ({
-      currentscreen : "regislogin"
+      currentscreen : "profile"
     })
   }
 
@@ -37,7 +37,7 @@ class Tab4 extends Component<{},{currentscreen : string}>{
       return <RegisLogin changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "collection"){
-      return <Collection changeScreen = {this.changeScreen}/>
+      return <Collection changeScreen = {this.changeScreen} writeable = {true}/>
     }
     if(this.state.currentscreen == "cardmaker"){
       return <CardMaker changeScreen = {this.changeScreen}/>
