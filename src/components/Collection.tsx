@@ -2,7 +2,7 @@ import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, Ion
 import { analyticsSharp, person, text } from "ionicons/icons";
 import React, {Component} from "react";
 
-class Collection extends Component<{changeScreen : any,writeable: boolean, data : any},{name: string, taskList: any, description: string, creator : any, likes: number, dislikes: number, truthCount: number, daresCount: number,searchText: string, writeable: boolean }>{
+class Collection extends Component<{changeScreen : any,writeable: boolean, data : any, cardMaker: any, index : number},{name: string, taskList: any, description: string, creator : any, likes: number, dislikes: number, truthCount: number, daresCount: number,searchText: string, writeable: boolean }>{
     constructor(props: any){
         super(props)
         this.state = {
@@ -85,8 +85,11 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
                 </IonRow>
                 <IonRow>
                     <div >
-                        <IonButton >
+                        <IonButton  >
                             Play
+                        </IonButton>
+                        <IonButton type = "button" onClick={() => this.props.cardMaker(this.props.index,"collection")} >
+                            + New
                         </IonButton>
                     </div>
                 </IonRow>

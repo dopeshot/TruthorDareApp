@@ -2,7 +2,7 @@ import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, Ion
 import { person } from "ionicons/icons";
 import React, { Component } from "react";
 
-class Profile extends Component<{ changeScreen: any }, {}>{
+class Profile extends Component<{ changeScreen: any, userSets:any, editColl : any, cardMaker : any, user: any }, {}>{
   constructor(props: any) {
     super(props)
   }
@@ -37,16 +37,31 @@ class Profile extends Component<{ changeScreen: any }, {}>{
           </IonRow>
           <IonRow>
             <IonCol style={{ display: 'flex', justifyContent: 'left', alignItems: 'left' }}>Your sets</IonCol>
-            <IonCol style={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}><IonButton type ="button" onClick={() => {this.props.changeScreen("collection")}}>+ New</IonButton></IonCol>
+            <IonCol style={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}><IonButton type ="button" onClick={() => {this.props.editColl({
+        name: "Collection Name",
+        taskList :
+        [
+        ],
+        description : "Beschreibung",
+        creator : {name : "Hottie2000"},
+        likes: 0,
+        dislikes: 0,
+        truthCount: 0,
+        daresCount: 0
+    })}}>+ New</IonButton></IonCol>
           </IonRow>
           <IonRow>
-            <IonButton type="button" onClick={() => { }}>Collection</IonButton>
-            <IonButton type="button" onClick={() => { }}>Collection</IonButton>
-            <IonButton type="button" onClick={() => { }}>Collection</IonButton>
+          { this.props.userSets && this.props.userSets.map((set : any,index : number) => {
+                return (
+                    <div>
+                    <IonButton type="button" onClick={() => {this.props.editColl(set,index) }}>{set.name}</IonButton>
+                  </div>
+                )
+              }) }
           </IonRow>
           <IonRow>
             <IonCol style={{ display: 'flex', justifyContent: 'left', alignItems: 'left' }}>Your tasks</IonCol>
-            <IonCol style={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}><IonButton type="button" onClick={() => { this.props.changeScreen("cardmaker") }}>+ New</IonButton></IonCol>
+            <IonCol style={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}><IonButton type="button" onClick={() => { this.props.cardMaker(-1,"profile") }}>+ New</IonButton></IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>

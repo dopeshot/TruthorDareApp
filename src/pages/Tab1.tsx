@@ -40,7 +40,7 @@ class Tab1 extends Component<{},{currentscreen : string, savedSet :any, currentS
       },
       () => {  this.setState({
         currentscreen : "collection"
-      }) }  // here is where you put the callback
+      }) }  
     );
     
     
@@ -54,7 +54,7 @@ class Tab1 extends Component<{},{currentscreen : string, savedSet :any, currentS
     }
     if(this.state.currentscreen == "collection"){
       console.log(this.state.currentSet)
-      return <Collection  changeScreen = {this.changeScreen} writeable = {false} data = {this.state.currentSet}/>
+      return <Collection  changeScreen = {this.changeScreen} writeable = {false} data = {this.state.currentSet} cardMaker={null} index = {-1}/>
     }
   }
 

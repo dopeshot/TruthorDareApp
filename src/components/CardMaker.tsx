@@ -2,10 +2,11 @@ import { IonRow, IonCol, IonItem, IonToggle, IonButton, IonGrid, IonContent, Ion
 import { person, text } from "ionicons/icons";
 import React, {Component} from "react";
 
-class CardMaker extends Component<{changeScreen : any},{text : string, gendered : boolean, gender: boolean}>{
+class CardMaker extends Component<{changeScreen : any, setIndex : number, pushToColl : any, lastScreen : string},{dare : boolean, text : string, gendered : boolean, gender: boolean}>{
     constructor(props: any){
         super(props)
         this.state = {
+            dare: true,
             text : "",
             gendered: false,
             gender: false
@@ -26,6 +27,7 @@ class CardMaker extends Component<{changeScreen : any},{text : string, gendered 
             gender : gender
         })
     }
+    
     render(){
         return <div>
             <IonPage>
@@ -38,7 +40,7 @@ class CardMaker extends Component<{changeScreen : any},{text : string, gendered 
             <IonGrid>
                 <IonRow>
                     <IonCol>
-                        <IonButton type ="button" onClick={() => {this.props.changeScreen("profile")}}>Pfeil</IonButton>                
+                        <IonButton type ="button" onClick={() => {this.props.changeScreen(this.props.lastScreen)}}>Pfeil</IonButton>                
                     </IonCol>
                     <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}><IonToggle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}/>{console.log(this.state.text)}</IonCol>
                     <IonCol>
@@ -64,6 +66,9 @@ class CardMaker extends Component<{changeScreen : any},{text : string, gendered 
            </IonCol>
            <IonCol>
            <IonToggle checked={this.state.gender} disabled = {!this.state.gendered} onIonChange={e => this.swapGender(e.detail.checked)} />
+           </IonCol>
+           <IonCol>
+           <IonButton type = "button" onClick={() => {this.props.pushToColl(this.props.setIndex,this.state)}}>+</IonButton>
            </IonCol>
        </IonRow>
        <IonRow>
