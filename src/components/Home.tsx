@@ -18,6 +18,7 @@ class Home extends React.Component<{ callback: any, changescreen: any }, { set: 
     }
   }
 
+
   callbackFunction(data: any) {
     console.log(data)
     this.setState({
@@ -41,7 +42,16 @@ class Home extends React.Component<{ callback: any, changescreen: any }, { set: 
     return (
       <IonPage>
         <IonContent>
-          <SetList callback={this.callbackFunction} />
+
+        <IonList><SetList callback={this.callbackFunction} /></IonList>
+            <IonInfiniteScroll threshold="100px" id="infinite-scroll">
+                <IonInfiniteScrollContent
+                    loading-spinner="bubbles"
+                    loading-text="Loading more data...">
+
+                </IonInfiniteScrollContent>
+            </IonInfiniteScroll>
+          
         </IonContent>
       </IonPage >
     );
