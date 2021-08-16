@@ -6,7 +6,7 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
     constructor(props: any){
         super(props)
         this.state = {
-            name: "collecjio",
+            name: "",
             taskList: [],
             description : "",
             creator: {name: "name"},
@@ -17,8 +17,15 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
             searchText: "",
             writeable : this.props.writeable
     }
-    this.setState({
-        name: this.props.data.name,
+    
+    
+    
+
+    
+    }
+    componentDidMount(){
+        this.setState({
+            name: this.props.data.name,
             taskList: this.props.data.taskList,
             description : this.props.data.description,
             creator: this.props.data.creator,
@@ -27,9 +34,9 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
             truthCount: this.props.data.truthCount,
             daresCount: this.props.data.daresCount
             
-    })
-
-    
+    },
+    () => {  console.log(this.state) }  
+  );
     }
     
 
@@ -54,6 +61,10 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
     }
 
     writeableOrNot(){
+        
+        if(this.state.name == ""){
+            return <div></div>
+        }
         if(this.state.writeable){
             return <div>
             <IonPage>
@@ -66,7 +77,7 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
                 </IonRow>
                 <IonRow>
                     <IonCol size = "3">
-                        <IonButton>Picture</IonButton>
+                        <IonButton>Eigen</IonButton>
                     </IonCol>
                     <IonCol>
                         <p>Name:{this.state.name}</p><p>created by{this.state.creator.name}</p><p>{this.state.truthCount} Truths</p><p>{this.state.daresCount} Dares</p>
@@ -112,13 +123,13 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
      <IonContent>
             <IonGrid>
                 <IonRow>
-                    <IonButton>
+                    <IonButton type = "button" onClick={() => this.props.changeScreen("home")}>
                         Pfeil
                     </IonButton>
                 </IonRow>
                 <IonRow>
                     <IonCol size = "3">
-                        <IonButton>Picture</IonButton>
+                        <IonButton>Fremd</IonButton>
                     </IonCol>
                     <IonCol>
                         <p>Name:{this.props.data.name}</p><p>created by {this.props.data.creator.name}</p><p>{this.props.data.truthCount} Truths</p><p>{this.props.data.daresCount} Dares</p>
@@ -158,6 +169,7 @@ class Collection extends Component<{changeScreen : any,writeable: boolean, data 
         }
     }
     render(){
+        
         return <div>
             {this.writeableOrNot()}
       </div>

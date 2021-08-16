@@ -26,19 +26,19 @@ class Tab1 extends Component<{},{currentscreen : string, savedSet :any, currentS
   }
 
   changeScreen(screen : string){
-    console.log(this.state.currentSet)
+   
 
     this.setState({
       currentscreen : screen
     })
   }
   showSet(data: any) {
-    console.log(data)
+    
     this.setState(
       {
         currentSet : data
       },
-      () => { this.setState({
+      () => {  this.setState({
         currentscreen : "collection"
       }) }  // here is where you put the callback
     );

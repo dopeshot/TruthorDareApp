@@ -37,10 +37,6 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
     render() {
 
         return (<div>
-            <IonInfiniteScroll threshold="100px" id="infinite-scroll">
-                            <IonInfiniteScrollContent
-                                loading-spinner="bubbles"
-                                loading-text="Loading more data...">
             {this.state.sets && this.state.sets.map((set: any, index: number) => {
                 return (
                     <div>
@@ -57,7 +53,10 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                     </div>
                 )
             })}
-            
+            <IonInfiniteScroll threshold="100px" id="infinite-scroll">
+                            <IonInfiniteScrollContent
+                                loading-spinner="bubbles"
+                                loading-text="Loading more data...">
                             </IonInfiniteScrollContent>
                         </IonInfiniteScroll>
         </div>
