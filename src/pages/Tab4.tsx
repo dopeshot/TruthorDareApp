@@ -37,7 +37,7 @@ class Tab4 extends Component<{},{currentscreen : string}>{
       return <RegisLogin changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "collection"){
-      return <Collection changeScreen = {this.changeScreen} writeable = {true}/>
+      return <Collection changeScreen = {this.changeScreen} writeable = {true} data ={null}/>
     }
     if(this.state.currentscreen == "cardmaker"){
       return <CardMaker changeScreen = {this.changeScreen}/>

@@ -9,23 +9,33 @@ import PlayerList from '../components/PlayerList'
 import SetList from './SetList';
 
 
-class Home extends React.Component<{ callback: any, changescreen: any }, { sets: any }> {
+class Home extends React.Component<{ callback: any, changescreen: any }, { set: any }> {
   constructor(props: any) {
     super(props)
     this.callbackFunction = this.callbackFunction.bind(this)
     this.state = {
-      sets: []
+      set: {}
     }
   }
 
   callbackFunction(data: any) {
+    console.log(data)
     this.setState({
-      sets: data
+      set: data
     })
-
-    this.props.callback(this.state.sets)
+    
+    this.props.callback(data)
+    
+    
+  
   }
-
+  sleep(milliseconds : number) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
   render() {
 
     return (

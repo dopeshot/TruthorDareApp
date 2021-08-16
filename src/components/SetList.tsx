@@ -32,23 +32,15 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
             })
     }
 
-    delSelf(index: number) {
-        var array: any
-        array = this.state.sets
-        array.splice(index, 1)
-        this.setState({ sets: array })
-    }
-
-    safe() {
-
-        if (this.state.sets.length != 0) {
-            this.props.callback(this.state.sets)
-        }
-    }
+    
     //@ts-ignore
     render() {
 
         return (<div>
+            <IonInfiniteScroll threshold="100px" id="infinite-scroll">
+                            <IonInfiniteScrollContent
+                                loading-spinner="bubbles"
+                                loading-text="Loading more data...">
             {this.state.sets && this.state.sets.map((set: any, index: number) => {
                 return (
                     <div>
@@ -57,19 +49,17 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <p>{index}</p>
                                 </IonItem>
-                                <IonButton type = "button" fill="clear" > {set.name}</IonButton>
+                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(set); console.log(set)}}> {set.name}</IonButton>
                         </IonRow>
                         </IonList>
 
-                        <IonInfiniteScroll threshold="100px" id="infinite-scroll">
-                            <IonInfiniteScrollContent
-                                loading-spinner="bubbles"
-                                loading-text="Loading more data...">
-                            </IonInfiniteScrollContent>
-                        </IonInfiniteScroll>
+                        
                     </div>
                 )
             })}
+            
+                            </IonInfiniteScrollContent>
+                        </IonInfiniteScroll>
         </div>
         )
     }

@@ -24,9 +24,10 @@ class Tab2 extends React.Component<{players : any},{players: any}> {
     else{
       return (
         <IonPage>
-          
+          <IonContent>
           
             <CardMover players = {this.props.players}/>
+            </IonContent>
         </IonPage>
       );
     }
