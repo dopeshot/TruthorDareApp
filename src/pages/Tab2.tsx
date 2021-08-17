@@ -18,10 +18,7 @@ class Tab2 extends React.Component<{players : any, playSet : any},{players: any}
     
   }
   firstStart(){
-    if(this.props.players.length == 0){
-      return <div>Set players first</div>
-    }
-    else{
+    
       return (
         <IonPage>
           <IonContent>
@@ -31,7 +28,7 @@ class Tab2 extends React.Component<{players : any, playSet : any},{players: any}
         </IonPage>
       );
     }
-  }
+  
   render(){
     return (
      <div>{this.firstStart()}</div>
