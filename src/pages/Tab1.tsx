@@ -12,16 +12,16 @@ import Login from '../components/Login';
 import Home from '../components/Home';
 import Collection from '../components/Collection';
 
-class Tab1 extends Component<{},{currentscreen : string, savedSet :any, currentSet : any}>{
-  constructor(){
+class Tab1 extends Component<{playSet : any},{currentscreen : string, savedSet :any, currentSet : any}>{
+  constructor(props: any){
     
-    super(false)
+    super(props)
     this.changeScreen = this.changeScreen.bind(this)
     this.showSet = this.showSet.bind(this)
     this.state = ({
       currentscreen : "home",
       savedSet  : null,
-      currentSet : null
+      currentSet : null,
     })
   }
 
@@ -50,11 +50,11 @@ class Tab1 extends Component<{},{currentscreen : string, savedSet :any, currentS
 
   screen(){
     if(this.state.currentscreen == "home"){
-      return <Home changescreen = {this.changeScreen} callback = {this.showSet}/>
+      return <Home changescreen = {this.changeScreen} callback = {this.showSet} />
     }
     if(this.state.currentscreen == "collection"){
-      console.log(this.state.currentSet)
-      return <Collection  changeScreen = {this.changeScreen} writeable = {false} data = {this.state.currentSet} cardMaker={null} index = {-1}/>
+      
+      return <Collection  changeScreen = {this.changeScreen} writeable = {false} data = {this.state.currentSet} cardMaker={null} index = {-1} playSet = {this.props.playSet}/>
     }
   }
 

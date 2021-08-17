@@ -11,10 +11,10 @@ import Registration from '../components/Registration';
 import LoginGoogle from '../components/LoginGoogle';
 import Login from '../components/Login';
 
-class Tab4 extends Component<{},{currentscreen : string, userSets : any, setIndex : number, collData : any, lastScreen : string}>{
-  constructor(){
+class Tab4 extends Component<{playSet: any},{currentscreen : string, userSets : any, setIndex : number, collData : any, lastScreen : string}>{
+  constructor(props: any){
     
-    super(false)
+    super(props)
     this.changeScreen = this.changeScreen.bind(this)
     this.editColl = this.editColl.bind(this)
     this.cardMaker = this.cardMaker.bind(this)
@@ -68,7 +68,7 @@ class Tab4 extends Component<{},{currentscreen : string, userSets : any, setInde
     }) } )
   }
   cardMaker(index : number, lastScreen : string){
-    console.log(index)
+    
     this.setState({
       setIndex: index,
       lastScreen : lastScreen
@@ -94,14 +94,23 @@ class Tab4 extends Component<{},{currentscreen : string, userSets : any, setInde
   )}
 
   pushToColl(index : number, data : any){
+    console.log(data.dare)
+    if(data.dare){
+      var type = "dare"
+    }
+    else{
+      var type = "truth"
+    }
+
     let obj = this.state.userSets
     obj[index].taskList.push({language: "deutsch",
-    type: data.type,
+    type: type,
     content: {message:data.text,currentPlayerGender : data.gender},
     author : {name: "Balkonkind"},
     likes : 0,
     dislikes: 0,
     status: "joa"})
+    this.changeScreen(this.state.lastScreen)
 
   }
 
@@ -113,7 +122,7 @@ class Tab4 extends Component<{},{currentscreen : string, userSets : any, setInde
   }
   screen(){
     if(this.state.currentscreen == "profile"){
-      console.log(this.state.userSets)
+      
       return <Profile changeScreen = {this.changeScreen} userSets = {this.state.userSets} editColl = {this.editColl} cardMaker = {this.cardMaker} user = {null}/>
     }
     if(this.state.currentscreen == "cardmaker"){
@@ -123,7 +132,7 @@ class Tab4 extends Component<{},{currentscreen : string, userSets : any, setInde
       return <RegisLogin changeScreen = {this.changeScreen}/>
     }
     if(this.state.currentscreen == "collection"){
-      return <Collection changeScreen = {this.changeScreen} writeable = {true} data = {this.state.collData} cardMaker = {this.cardMaker} index = {this.state.setIndex}/>
+      return <Collection changeScreen = {this.changeScreen} writeable = {true} data = {this.state.collData} cardMaker = {this.cardMaker} index = {this.state.setIndex} playSet = {this.props.playSet}/>
     }
 
     if(this.state.currentscreen == "registration"){

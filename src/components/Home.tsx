@@ -9,7 +9,7 @@ import PlayerList from '../components/PlayerList'
 import SetList from './SetList';
 
 
-class Home extends React.Component<{ callback: any, changescreen: any }, { set: any }> {
+class Home extends React.Component<{ callback: any, changescreen: any}, { set: any }> {
   constructor(props: any) {
     super(props)
     this.callbackFunction = this.callbackFunction.bind(this)
@@ -19,7 +19,7 @@ class Home extends React.Component<{ callback: any, changescreen: any }, { set: 
   }
 
   callbackFunction(data: any) {
-    console.log(data)
+    
     this.setState({
       set: data
     })
@@ -41,7 +41,7 @@ class Home extends React.Component<{ callback: any, changescreen: any }, { set: 
     return (
       <IonPage>
         <IonContent>
-          <SetList callback={this.callbackFunction} />
+          <SetList callback={this.callbackFunction}/>
         </IonContent>
       </IonPage >
     );

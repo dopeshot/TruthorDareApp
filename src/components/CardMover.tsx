@@ -3,7 +3,7 @@ import React, {Component} from "react";
 
 import Player from "./Player";
 
-class CardMover extends Component<{players : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, currentPlayerName: string, currentPlayerGender: string}>{
+class CardMover extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, currentPlayerName: string, currentPlayerGender: string}>{
     
     constructor(props: any){
         super(props)
@@ -22,27 +22,12 @@ class CardMover extends Component<{players : any},{cards: any, truths: any, dare
         
     }
     componentDidMount(){
-        
-      fetch('./collection.json')
-      .then(response => {
-          return response.json()})
-      .then(result => {
-
-          
-          //@ts-ignore
-          const cards = result.map(item => {
-              
-              return item;
-          })
-          this.setState({
-              cards: cards
-          })
           var truths : any = []
           var dares : any = []
 
           //@ts-ignore
-          this.state.cards.forEach(element => {
-            if(element.dare){
+          this.props.playSet.taskList.forEach(element => {
+            if(element.type == "dare"){
               dares.push(element)
             }
             else{
@@ -56,20 +41,20 @@ class CardMover extends Component<{players : any},{cards: any, truths: any, dare
           })
 
           
-      })
+      
   }
   renderText(){
     if(this.state.dare){
       if(this.state.dares.length != 0){
         return <div>
-          {this.state.dares[this.state.current].text}
+          {this.state.dares[this.state.current].content.message}
         </div>
         }
     }
     else{
       if(this.state.truths.length != 0){
         return <div>
-          {this.state.truths[this.state.current].text}
+          {this.state.truths[this.state.current].content.message}
         </div>
         }
     }

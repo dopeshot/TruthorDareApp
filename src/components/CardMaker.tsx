@@ -6,7 +6,7 @@ class CardMaker extends Component<{changeScreen : any, setIndex : number, pushTo
     constructor(props: any){
         super(props)
         this.state = {
-            dare: true,
+            dare: false,
             text : "",
             gendered: false,
             gender: false
@@ -42,7 +42,8 @@ class CardMaker extends Component<{changeScreen : any, setIndex : number, pushTo
                     <IonCol>
                         <IonButton type ="button" onClick={() => {this.props.changeScreen(this.props.lastScreen)}}>Pfeil</IonButton>                
                     </IonCol>
-                    <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}><IonToggle style={{display: 'flex', justifyContent:'center', alignItems:'center'}}/>{console.log(this.state.text)}</IonCol>
+                    <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+                        <IonToggle onIonChange={e => this.setState({ dare :e.detail.checked})} checked = {this.state.dare} style={{display: 'flex', justifyContent:'center', alignItems:'center'}}/>{console.log(this.state.text)}</IonCol>
                     <IonCol>
                         
                     </IonCol>

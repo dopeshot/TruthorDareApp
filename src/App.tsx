@@ -38,15 +38,18 @@ import './theme/variables.css';
 import { profile } from 'console';
 import Counter from './components/counter';
 
-class App extends React.Component<{},{players: any}> {
+class App extends React.Component<{},{players: any, user : any, playSet : any}> {
 
   constructor(props: any){
 
   
     super(props)
     this.callbackFunction = this.callbackFunction.bind(this)
+    this.setPlaySet = this.setPlaySet.bind(this)
     this.state={
-      players: []
+      players: [],
+      user : null,
+      playSet : null
     }
   }
   callbackFunction(data : any){
@@ -55,23 +58,30 @@ class App extends React.Component<{},{players: any}> {
       players : data
     })
   }
+  setPlaySet(set : any){
+    this.setState({
+      playSet : set
+    },
+    () => {  console.log(this.state.playSet) }  )
+
+  }
   render(){
     return <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/tab1">
-            <Tab1 />
+            <Tab1 playSet = {this.setPlaySet}/>
           </Route>
           <Counter/>
           <Route exact path="/tab2">
-            <Tab2 players = {this.state.players}/>
+            <Tab2 players = {this.state.players} playSet = {this.state.playSet}/>
           </Route>
           <Route path="/tab3">
             <Tab3 callback = {this.callbackFunction}/>
           </Route>
           <Route exact path="/tab4">
-            <Tab4   />
+            <Tab4 playSet = {this.setPlaySet}  />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />

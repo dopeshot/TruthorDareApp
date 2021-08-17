@@ -6,7 +6,7 @@ import CardMover from '../components/CardMover';
 import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
 
 
-class Tab2 extends React.Component<{players : any},{players: any}> {
+class Tab2 extends React.Component<{players : any, playSet : any},{players: any}> {
   constructor(props : any){
     super(props)
     this.state = {
@@ -26,7 +26,7 @@ class Tab2 extends React.Component<{players : any},{players: any}> {
         <IonPage>
           <IonContent>
           
-            <CardMover players = {this.props.players}/>
+            <CardMover players = {this.props.players} playSet = {this.props.playSet}/>
             </IonContent>
         </IonPage>
       );
