@@ -1,25 +1,28 @@
-import { IonRow, IonList, IonItem, IonInfiniteScrollContent, IonButton, IonInfiniteScroll } from "@ionic/react";
+import { IonRow, IonList, IonItem, IonInfiniteScrollContent, IonButton, IonInfiniteScroll, IonSearchbar } from "@ionic/react";
 import React, { Component } from "react";
 import Player from "./Player";
 
-class SetList extends Component<{ callback: any }, { setCount: number, sets: any }> {
+class SetList extends Component<{ callback: any }, { setCount: number, sets: any, searchText : string, searchSets : any }> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
             setCount: 2,
-            sets: []
+            sets: [],
+            searchText: "",
+            searchSets : []
         }
     }
 
     componentDidMount() {
 
-        fetch('./sets.json')
+        fetch('https://truth-or-dare-community.herokuapp.com/api/set')
             .then(response => {
                 return response.json()
             })
             .then(result => {
+                console.log(result)
 
                 //@ts-ignore
                 const sets = result.map(item => {
@@ -31,6 +34,21 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                 })
             })
     }
+    setSearchText(text: string){
+        this.setState({
+            searchText: text
+        },
+        () => {this.fetchSearch(text)} )
+    }
+    fetchSearch(searchText : string){
+
+
+
+        this.setState({
+            searchSets : []
+        })
+    }
+
 
     
     //@ts-ignore
@@ -48,17 +66,24 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(set); console.log(set)}}> {set.name}</IonButton>
                         </IonRow>
                         </IonList>
-
-                        
                     </div>
                 )
             })}
-            <IonInfiniteScroll threshold="100px" id="infinite-scroll">
-                            <IonInfiniteScrollContent
-                                loading-spinner="bubbles"
-                                loading-text="Loading more data...">
-                            </IonInfiniteScrollContent>
-                        </IonInfiniteScroll>
+            <IonSearchbar value={this.state.searchText} placeholder = {"Search"} onIonChange={e => this.setSearchText(e.detail.value!)}></IonSearchbar>
+            {this.state.searchSets && this.state.searchSets.map((set: any, index: number) => {
+                return (
+                    <div>
+                        <IonList>
+                        <IonRow>
+                                <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <p>{index}</p>
+                                </IonItem>
+                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(set); console.log(set)}}> {set.name}</IonButton>
+                        </IonRow>
+                        </IonList>
+                    </div>
+                )
+            })}
         </div>
         )
     }

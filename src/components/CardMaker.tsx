@@ -17,6 +17,10 @@ class CardMaker extends Component<{changeScreen : any, setIndex : number, pushTo
             text : text
         })
     }
+    
+    addPlayer(){
+        
+    }
     setChecked(gendered : boolean){
         this.setState({
             gendered : gendered
