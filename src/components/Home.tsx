@@ -19,7 +19,7 @@ class Home extends React.Component<{ callback: any, changescreen: any}, { set: a
   }
 
   callbackFunction(data: any) {
-    
+    console.log(data)
     this.setState({
       set: data
     })

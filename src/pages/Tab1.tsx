@@ -33,7 +33,7 @@ class Tab1 extends Component<{playSet : any},{currentscreen : string, savedSet :
     })
   }
   showSet(data: any) {
-    
+    console.log(data)
     this.setState(
       {
         currentSet : data
@@ -53,7 +53,7 @@ class Tab1 extends Component<{playSet : any},{currentscreen : string, savedSet :
       return <Home changescreen = {this.changeScreen} callback = {this.showSet} />
     }
     if(this.state.currentscreen == "collection"){
-      
+      {console.log(this.state.currentSet)}
       return <Collection  changeScreen = {this.changeScreen} writeable = {false} data = {this.state.currentSet} cardMaker={null} index = {-1} playSet = {this.props.playSet}/>
     }
   }

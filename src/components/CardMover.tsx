@@ -3,7 +3,7 @@ import React, {Component} from "react";
 
 import Player from "./Player";
 
-class CardMover extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, currentPlayerName: string, currentPlayerGender: string}>{
+class CardMover extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, fems:any, males:any, currentPlayerName: string, currentPlayerGender: string}>{
     
     constructor(props: any){
         super(props)
@@ -16,6 +16,8 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
             dare : true,
             choose : true,
             players: this.props.players,
+            fems: [],
+            males: [],
             currentPlayerName: "",
             currentPlayerGender: ""
         }
@@ -24,6 +26,8 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
     componentDidMount(){
           var truths : any = []
           var dares : any = []
+          var males : any = []
+          var fems : any = []
 
           //@ts-ignore
           this.props.playSet.taskList.forEach(element => {
@@ -34,27 +38,47 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
               truths.push(element)
             }
           });
+          //@ts-ignore
+          this.props.players.forEach(element => {
+            if(element.gender == "male"){
+              males.push(element)
+            }
+            else{
+              fems.push(element)
+            }})
           this.setState({
             dares: dares,
             truths: truths,
-            currentPlayerName : this.props.players[0].name
+            currentPlayerName : this.props.players[0].name,
+            males : males,
+            fems: fems
           })
-
+         
+          
           
       
+  }
+
+  replaceText(text : string){
+
+    
+    text = text.replace("@a","Ben")
+    text = text.replace("@f","Sarah")
+    text = text.replace("@m","Maxi")
+    return text
   }
   renderText(){
     if(this.state.dare){
       if(this.state.dares.length != 0){
         return <div>
-          {this.state.dares[this.state.current].content.message}
+          {this.replaceText(this.state.dares[this.state.current].content.message)}
         </div>
         }
     }
     else{
       if(this.state.truths.length != 0){
         return <div>
-          {this.state.truths[this.state.current].content.message}
+          {this.replaceText(this.state.truths[this.state.current].content.message)}
         </div>
         }
     }
@@ -174,6 +198,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
    
   }
   chooseOrPlay(){
+
     if(this.state.choose){
       return <div>
         {this.renderChoice()}

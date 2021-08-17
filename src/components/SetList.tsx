@@ -49,6 +49,20 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
         })
     }
 
+    fetchSet(id : string){
+
+        fetch(`https://truth-or-dare-community.herokuapp.com/api/set/${id}/tasks`)
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                console.log(result)
+                
+                this.props.callback(result)
+            })
+            
+    }
+
 
     
     //@ts-ignore
@@ -63,7 +77,7 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <p>{index}</p>
                                 </IonItem>
-                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(set); console.log(set)}}> {set.name}</IonButton>
+                                <IonButton type = "button" fill="clear" onClick={() => {this.fetchSet(set._id)}}> {set.name}</IonButton>
                         </IonRow>
                         </IonList>
                     </div>
@@ -78,7 +92,7 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <p>{index}</p>
                                 </IonItem>
-                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(set); console.log(set)}}> {set.name}</IonButton>
+                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(this.fetchSet(set.id)); console.log(set)}}> {set.name}</IonButton>
                         </IonRow>
                         </IonList>
                     </div>
