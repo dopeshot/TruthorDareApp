@@ -2,7 +2,7 @@ import { IonRow, IonList, IonItem, IonInfiniteScrollContent, IonButton, IonInfin
 import React, { Component } from "react";
 import Player from "./Player";
 
-class SetList extends Component<{ callback: any }, { setCount: number, sets: any, searchText : string, searchSets : any }> {
+class SetList extends Component<{ callback: any }, { setCount: number, sets: any, searchText : string, searchSets : any, searchTasks : any }> {
 
     constructor(props: any) {
         super(props);
@@ -11,7 +11,8 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
             setCount: 2,
             sets: [],
             searchText: "",
-            searchSets : []
+            searchSets : [],
+            searchTasks : []
         }
     }
 
@@ -41,12 +42,24 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
         () => {this.fetchSearch(text)} )
     }
     fetchSearch(searchText : string){
-
-
-
-        this.setState({
-            searchSets : []
+        if(searchText.length >= 3){
+        
+        fetch(`https://truth-or-dare-community.herokuapp.com/api/search/${searchText}`)
+        .then(response => {
+            return response.json()
         })
+        .then(result => {
+            console.log(result)
+            
+            this.setState({
+                searchSets : result.sets.items,
+                searchTasks : result.tasks.items
+
+            })
+        })
+
+    }
+        
     }
 
     fetchSet(id : string){
@@ -92,10 +105,26 @@ class SetList extends Component<{ callback: any }, { setCount: number, sets: any
                                 <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <p>{index}</p>
                                 </IonItem>
-                                <IonButton type = "button" fill="clear" onClick={() => {this.props.callback(this.fetchSet(set.id)); console.log(set)}}> {set.name}</IonButton>
+                                <IonButton type = "button" fill="clear" onClick={() => {this.fetchSet(set._id)}}> {set.name}</IonButton>
                         </IonRow>
                         </IonList>
                     </div>
+                    
+                )
+            })}
+            {this.state.searchTasks && this.state.searchTasks.map((task: any, index: number) => {
+                return (
+                    <div>
+                        <IonList>
+                        <IonRow>
+                                <IonItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <p>{index}</p>
+                                </IonItem>
+                                <IonButton type = "button" fill="clear" onClick={() => {}}> {task.content.message}</IonButton>
+                        </IonRow>
+                        </IonList>
+                    </div>
+                    
                 )
             })}
         </div>

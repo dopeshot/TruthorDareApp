@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 import Player from "./Player";
 
-class CardMover extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, dare : boolean, choose : boolean, players:any, fems:any, males:any, currentPlayerName: string, currentPlayerGender: string, emptyPlayers : any}>{
+class CardMover  extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, currentType : string, choose : boolean, players:any, fems:any, males:any, currentPlayerName: string, currentPlayerGender: string, emptyPlayers : any}>{
     
     constructor(props: any){
         super(props)
@@ -13,7 +13,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
             truths :[],
             dares :[],
             current: 0,
-            dare : true,
+            currentType : "",
             choose : true,
             players: this.props.players,
             fems: [],
@@ -25,25 +25,14 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
         
     }
     componentDidMount(){
-          var truths : any = []
-          var dares : any = []
+          
           
 
           //@ts-ignore
-          this.props.playSet.taskList.forEach(element => {
-            if(element.type == "dare"){
-              dares.push(element)
-            }
-            else{
-              truths.push(element)
-            }
-          });
+         
           
          
-          this.setState({
-            dares: dares,
-            truths: truths,
-          })
+         
           
       
   }
@@ -57,35 +46,31 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
     return text
   }
   renderText(){
-    if(this.state.dare){
-      if(this.state.dares.length != 0){
-        return <div>
-          {this.replaceText(this.state.dares[this.state.current].content.message)}
-        </div>
+    
+      if(this.props.playSet.length != 0){
+        let content : string
+        content = 'Keine ' + this.state.currentType +'s mehr übrig.' 
+        //@ts-ignore
+        this.props.playSet.taskList.forEach(task => {
+          if(task.type == this.state.currentType){
+            console.log(task.content.message)
+            
+            content = this.replaceText(task.content.message)
+          
+          }
+          
+        });
+        return<div>{content}</div>
+
+        
       }
-    }
-    else {
-      if (this.state.truths.length != 0) {
-        return <div>
-          {this.replaceText(this.state.truths[this.state.current].content.message)}
-        </div>
-      }
-    }
+    
+    
+      
+    
   }
   remCard() {
-    if (!this.state.dare) {
-      var array: any
-      array = this.state.truths
-      array.splice(this.state.current, 1)
-      this.setState({ truths: array })
-    }
-    else {
-      var array: any
-      array = this.state.dares
-      array.splice(this.state.current, 1)
-      this.setState({ dares: array })
-
-    }
+   
 
     var males : any = []
     var fems : any = []
@@ -125,7 +110,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
               <IonRow>
                 <IonCol>
 
-                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ dare: false, choose: false }) }}>
+                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ currentType: "truth", choose: false }) }}>
                     Truth
                   </IonButton>
                 </IonCol>
@@ -138,7 +123,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ dare: true, choose: false }) }}>
+                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ currentType: "dare", choose: false }) }}>
                     Dare
                   </IonButton>
                 </IonCol>
@@ -152,6 +137,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
   }
   renderCard() {
     return (<div>
+      {console.log(this.props.playSet)}
 
       <IonCard>
         <IonCardHeader>
@@ -194,7 +180,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
   truthOrDareTitle() {
 
 
-    if (this.state.dare) {
+    if (this.state.currentType == "dare") {
       return <div>
         <IonCardTitle style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Dare</IonCardTitle>
       </div>
@@ -246,9 +232,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
           <IonGrid id="grid">
             <IonRow>
               <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <IonButton type="button" onClick={() => { this.remCard(); this.setState({ choose: true }) }}>
-
-                </IonButton>
+               
               </IonCol>
               <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <IonButton type="button" onClick={() => { this.finishedPlayers() }}>
@@ -256,9 +240,7 @@ class CardMover extends Component<{players : any, playSet : any},{cards: any, tr
                 </IonButton>
               </IonCol>
               <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <IonButton type="button" onClick={() => { this.remCard(); this.setState({ choose: true }) }}>
-
-                </IonButton>
+                
               </IonCol>
             </IonRow>
 
