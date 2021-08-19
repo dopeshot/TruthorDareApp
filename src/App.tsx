@@ -47,11 +47,24 @@ class App extends React.Component<{},{players: any, user : any, playSet : any}> 
     this.callbackFunction = this.callbackFunction.bind(this)
     this.setPlaySet = this.setPlaySet.bind(this)
     this.state={
-      players: [],
+      players: [{name: "", gender : "male"},{name : "",gender : "male"}],
       user : null,
       playSet : null
     }
   }
+
+  componentDidMount(){
+    fetch(`https://truth-or-dare-community.herokuapp.com/api/set/611c1d4c1c20a66b5cdad7bf/tasks`)
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                this.setState({
+                  playSet : result
+                })
+            })
+  }
+
   callbackFunction(data : any){
     
     this.setState({
@@ -79,7 +92,7 @@ class App extends React.Component<{},{players: any, user : any, playSet : any}> 
             <Tab2 players = {this.state.players} playSet = {this.state.playSet}/>
           </Route>
           <Route path="/tab3">
-            <Tab3 callback = {this.callbackFunction}/>
+            <Tab3 callback = {this.callbackFunction} players = {this.state.players}/>
           </Route>
           <Route exact path="/tab4">
             <Tab4 playSet = {this.setPlaySet}  />
