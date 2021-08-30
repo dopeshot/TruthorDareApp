@@ -6,14 +6,11 @@ import Player from "./Player";
 
 
 
-class PlayerList extends Component<{callback: any}, { playerCount: number, players : any }> {
+class PlayerList extends Component<{callback: any, players : any}, { playerCount: number, players : any }> {
     
    
     constructor(props: any){
         super(props);
-        
-        
-        
         
         
         this.state = {
@@ -37,7 +34,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
                 return item;
             })
             this.setState({
-                players: players
+                players: this.props.players
             })
         })
     }
@@ -46,6 +43,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
         array = this.state.players
         array.splice(index,1)
         this.setState({players: array})
+        
     }
     swapGender(index : number){
         var array : any
@@ -57,6 +55,7 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
             array[index].gender = "male"
         }
         this.setState({players: array})
+        
     }
     setName(name: string, index: number){
         var array : any
@@ -64,21 +63,27 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
         array[index].name = name
         this.setState({players: array})
         this.safe();
+        
     }
     
     addUser(){
+        console.log("addUser")
         var array : any
         array = this.state.players
         array.push({gender: "male",
                     name: ""})
+        
         this.setState({players: array})
         this.setState({playerCount: this.state.playerCount +1})
+        this.forceUpdate()
+        
+        
     }
     safe(){
         
-        if(this.state.players.length != 0){
+        
         this.props.callback(this.state.players)
-        }
+        
     }
     //@ts-ignore
     render(){
@@ -106,12 +111,12 @@ class PlayerList extends Component<{callback: any}, { playerCount: number, playe
 
 
         <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-         
+        
         <IonButton type ="button" onClick={() => {this.addUser()}}>
           +
         </IonButton>
        
-        </IonCol>{}
+        </IonCol>
       </IonRow></div>
         )
     }

@@ -9,7 +9,7 @@ import PlayerList from '../components/PlayerList'
 import './Tab4.css';
 
 
-class Tab4 extends React.Component<{callback: any},{players : any}> {
+class Tab4 extends React.Component<{callback: any, players : any},{players : any}> {
   constructor(props: any){
     super(props)
     this.callbackFunction = this.callbackFunction.bind(this)
@@ -36,7 +36,7 @@ class Tab4 extends React.Component<{callback: any},{players : any}> {
       <IonContent>
     <IonGrid id="grid">
       
-     <PlayerList callback = {this.callbackFunction}/>
+     <PlayerList callback = {this.callbackFunction} players = {this.props.players}/>
     </IonGrid>
   </IonContent>
     </IonPage>
