@@ -13,6 +13,7 @@ class Tab2 extends React.Component<{players : any, playSet : any},{players: any}
       players : this.props.players,
       
     }
+    console.log(this.props.playSet)
 
     
     

@@ -34,7 +34,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
                 return item;
             })
             this.setState({
-                players: players
+                players: this.props.players
             })
         })
     }
@@ -43,7 +43,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
         array = this.state.players
         array.splice(index,1)
         this.setState({players: array})
-        this.safe()
+        
     }
     swapGender(index : number){
         var array : any
@@ -55,7 +55,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
             array[index].gender = "male"
         }
         this.setState({players: array})
-        this.safe()
+        
     }
     setName(name: string, index: number){
         var array : any
@@ -63,6 +63,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
         array[index].name = name
         this.setState({players: array})
         this.safe();
+        
     }
     
     addUser(){
@@ -71,11 +72,11 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
         array = this.state.players
         array.push({gender: "male",
                     name: ""})
-        this.props.players.push({gender: "male",
-        name: ""})
+        
         this.setState({players: array})
         this.setState({playerCount: this.state.playerCount +1})
-        this.safe()
+        this.forceUpdate()
+        
         
     }
     safe(){
@@ -88,7 +89,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
     render(){
         
         return(<div>
-            { this.props.players && this.props.players.map((player : any,index : number) => {
+            { this.state.players && this.state.players.map((player : any,index : number) => {
                 return (
                     <div>
                     <IonRow>
@@ -110,7 +111,7 @@ class PlayerList extends Component<{callback: any, players : any}, { playerCount
 
 
         <IonCol style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-        {console.log("button")}
+        
         <IonButton type ="button" onClick={() => {this.addUser()}}>
           +
         </IonButton>

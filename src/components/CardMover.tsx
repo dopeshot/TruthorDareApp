@@ -3,14 +3,21 @@ import React, { Component } from "react";
 
 import Player from "./Player";
 
-class CardMover  extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, currentType : string, choose : boolean, players:any,  currentPlayerName: string, currentPlayerGender: string, emptyPlayers : any, continue : boolean}>{
+class CardMover  extends Component<{players : any, playSet : any},{cards: any, truths: any, dares : any, current: number, currentType : string, choose : boolean, players:any,  currentPlayerName: string, currentPlayerGender: string, emptyPlayers : any, continue : boolean, currentContent: string}>{
   current : number
+  played : any
+  skipped: any
+  rest: any
     constructor(props: any){
       
         super(props)
         
         this.current = 0
-
+        this.rest = this.props.playSet.taskList
+        
+        
+        this.played = []
+        this.skipped = []
         this.state= {
             cards: [],
             truths :[],
@@ -22,18 +29,20 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
             currentPlayerName: "",
             currentPlayerGender: "",
             emptyPlayers: [],
-            continue: false
+            continue: false,
+            currentContent: ""
+
         }
         
     }
     
     componentDidMount(){
           
-          
+  }
+  
+  shuffle(array : any) {
 
     
-  }
-  shuffle(array : any) {
     var currentIndex = array.length,  randomIndex;
   
     
@@ -51,76 +60,104 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
     return array;
   }
 
-  replaceText(text : string){
+  replaceText(text : string, players:{ atA : any, atF: any, atM: any}){
     
-    let array = this.state.players
-    var males: any = [] 
-    var females: any = [] 
+    text = text.replace("@a",players.atA.name)
+    text = text.replace("@f",players.atF.name)
+    text = text.replace("@m",players.atM.name)
+    return text
+  }
+  
+  genderToGender(atForm : string){
+    switch(atForm) {
+      case "@ca":
+        return this.state.currentPlayerGender
+        break;
+      case "@cm":
+        return "male"
+        break;
+        case "@cf":
+          return "female"
+          break;
+    } 
+  }
+  nextCard(type: string){
+    
+    
+
+    let males = []
+    
+    let females : any = []
+
     //@ts-ignore
-    array.forEach(element => {
-      if(element.gender == "male"){
+    this.onlyFullPlayers().forEach(element => {
+      if(element.gender == "female"){
+        females.push(element)
+      }else{
         males.push(element)
       }
-      else{
-        females.push(element)
+      
+    });
+
+    
+
+    let minFem
+    let minMale
+    this.shuffle(this.rest)
+    let minPlayers = this.rest[0].content.anyoneCount + this.rest[0].content.maleCount + this.rest[0].content.femaleCount + 1
+    if(this.state.currentPlayerGender == "female"){minFem = this.rest[0].content.femaleCount+1}else{minFem = this.rest[0].content.femaleCount}
+    if(this.state.currentPlayerGender == "male"){minMale = this.rest[0].content.maleCount+1}else{minMale = this.rest[0].content.maleCount}
+    
+    
+    
+    
+    if(this.genderToGender(this.rest[0].content.currentPlayerGender) == this.state.currentPlayerGender && this.onlyFullPlayers().length>=minPlayers && females.length >= minFem && males.length >= minMale ){
+      
+
+      console.log("Played: " + this.rest[0].content.message)
+      this.played.push(this.rest[0])
+      let current = this.rest[0]
+      this.rest.splice(0,1)
+      
+      
+      this.setState({currentContent: current.content.message, currentType : type, choose: false }) 
+    }else{
+      
+      console.log("Skipped: " + this.rest[0].content.message)
+      this.skipped.push(this.rest[0])
+      this.rest.splice(0,1)
+      this.nextCard(type)
+    }
+
+  }
+
+
+  
+
+  onlyFullPlayers() : any{
+    let fullPlayerCount = this.state.players
+    
+    fullPlayerCount.forEach((player: any,index: any) => {
+      if(player.name == ""){
+      fullPlayerCount.splice(index,1)
       }
     });
     
-    let atA = this.shuffle(array)[0]
-    let atM = this.shuffle(males)[0]
-    let atF = this.shuffle(females)[0]
-    
-    text = text.replace("@a",atA.name)
-    text = text.replace("@f",atF.name)
-    text = text.replace("@m",atM.name)
-    return text
-  }
-  renderText(){
-    
-      if(this.props.playSet.length != 0){
-        let content : string
-        content = 'Keine ' + this.state.currentType +'s mehr übrig.' 
-        //@ts-ignore
-        this.props.playSet.taskList.forEach((task, index) => {
-          if(task.type == this.state.currentType){
-            console.log(task.content.message)
-            
-            content = this.replaceText(task.content.message)
-            this.current = index
-          }
-          
-        });
-        return<div>{content}</div>
+  return fullPlayerCount
+}
 
-        
-      }
-    
-    
-      
-    
-  }
-  remCard() {
-   
-    this.props.playSet.taskList.splice(this.current,1)
+  selectPlayer(type : string) {
 
-    //@ts-ignore
     
-    this.setState({
-      currentPlayerName : this.state.players[0].name
-      
-    })
+    
+    var randInt = Math.floor(Math.random() * this.onlyFullPlayers().length);
 
-    this.selectPlayer()
-  }
-  finishedPlayers(){
-    this.setState({ choose: true, players: this.state.emptyPlayers },
-      () => {this.remCard()})
-  }
-  selectPlayer() {
-    var randInt = Math.floor(Math.random() * this.state.players.length);
-    this.setState({ currentPlayerName: this.state.players[randInt].name, currentPlayerGender: this.state.players[randInt].gender })
+    this.setState({ currentPlayerName: this.onlyFullPlayers()[randInt].name, currentPlayerGender: this.onlyFullPlayers()[randInt].gender },() => {
+      this.nextCard(type)
+       })
 
   }
+
   renderChoice() {
     return (
       <IonCard>
@@ -131,7 +168,7 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
               <IonRow>
                 <IonCol>
 
-                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ currentType: "truth", choose: false }) }}>
+                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.selectPlayer("truth");  }}>
                     Truth
                   </IonButton>
                 </IonCol>
@@ -144,7 +181,7 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.setState({ currentType: "dare", choose: false }) }}>
+                  <IonButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} type="button" onClick={() => { this.selectPlayer("dare"); }}>
                     Dare
                   </IonButton>
                 </IonCol>
@@ -158,7 +195,7 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
   }
   renderCard() {
     return (<div>
-      {console.log(this.state.currentPlayerName)}
+      
 
       <IonCard>
         <IonCardHeader>
@@ -169,7 +206,7 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
 
         <IonCardContent >
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            {this.renderText()}
+            {this.state.currentContent}
           </div>
 
         </IonCardContent>
@@ -178,17 +215,17 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
       <IonGrid id="grid">
         <IonRow>
           <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <IonButton type="button" onClick={() => { this.remCard(); this.setState({ choose: true }) }}>
+            <IonButton type="button" onClick={() => { this.setState({ choose: true }) }}>
 
             </IonButton>
           </IonCol>
           <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <IonButton type="button" onClick={() => { this.remCard(); this.setState({ choose: true }) }}>
+            <IonButton type="button" onClick={() => {  this.setState({ choose: true }) }}>
 
             </IonButton>
           </IonCol>
           <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <IonButton type="button" onClick={() => { this.remCard(); this.setState({ choose: true }) }}>
+            <IonButton type="button" onClick={() => {  this.setState({ choose: true }) }}>
 
             </IonButton>
           </IonCol>
@@ -278,8 +315,8 @@ class CardMover  extends Component<{players : any, playSet : any},{cards: any, t
       gender: "male",
       name: ""
     })
-    
-    
+    this.setState({ players: array })
+    this.forceUpdate()
   }
 
   delSelf(index: number): void {

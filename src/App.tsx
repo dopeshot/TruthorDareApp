@@ -75,8 +75,8 @@ class App extends React.Component<{},{players: any, user : any, playSet : any}> 
     this.setState({
       playSet : set
     },
-    () => {  console.log(this.state.playSet) }  )
-    console.log(this.state.playSet)
+    () => {  }  )
+    
 
   }
   render(){
